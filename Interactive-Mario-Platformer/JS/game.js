@@ -114,6 +114,16 @@ function createFun() {
     this.physics.add.collider(platforms, fruits);
     this.physics.add.overlap(this.player, fruits, eatFruit, null, this);
     
+    // don't allow the player to move out of the game boundary
+    this.player.setCollideWorldBounds(true);
+    
+    // working with camera
+    this.cameras.main.setBounds(0,0,W,H);
+    this.physics.world.setBounds(0,0,W,H);
+    
+    this.cameras.main.startFollow(this.player, true, true);
+    this.cameras.main.setZoom(1.5);
+    
 }
 
 function updateFun() {
@@ -136,5 +146,4 @@ function updateFun() {
 
 function eatFruit(player, fruit) {
     fruit.disableBody(true, true);
-    fruit.refreshBody();
 }
