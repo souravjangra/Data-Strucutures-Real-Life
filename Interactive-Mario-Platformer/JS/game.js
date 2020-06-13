@@ -112,6 +112,7 @@ function createFun() {
     // collision detection between player and ground
     this.physics.add.collider(platforms, this.player);
     this.physics.add.collider(platforms, fruits);
+    this.physics.add.overlap(this.player, fruits, eatFruit, null, this);
     
 }
 
@@ -131,4 +132,9 @@ function updateFun() {
     if(this.cursors.up.isDown && this.player.body.touching.down) {
         this.player.setVelocityY(player_config.player_jumpspeed)
     }
+}
+
+function eatFruit(player, fruit) {
+    fruit.disableBody(true, true);
+    fruit.refreshBody();
 }
