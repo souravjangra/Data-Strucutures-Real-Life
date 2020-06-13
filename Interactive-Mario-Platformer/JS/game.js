@@ -28,7 +28,7 @@ let game = new Phaser.Game(config);
 
 let player_config = {
     player_speed: 150,
-    player_jumpspeed: -500
+    player_jumpspeed: -700
 }
 
 function preloadFun() {
@@ -61,6 +61,24 @@ function createFun() {
     
     // player animations and movements
     
+    this.anims.create({
+       key: 'left',
+       frames: this.anims.generateFrameNumbers('player',{start:0, end: 3}),
+       frameRate: 10,
+       repeat: -1
+    });
+    this.anims.create({
+       key: 'center',
+       frames: this.anims.generateFrameNumbers('player',{start:4, end: 4}),
+       frameRate: 10,
+    });
+    this.anims.create({
+       key: 'right',
+       frames: this.anims.generateFrameNumbers('player',{start:5, end: 8}),
+       frameRate: 10,
+       repeat: -1
+    });
+    
     // keyboard controls
     this.cursors = this.input.keyboard.createCursorKeys();
     
@@ -92,7 +110,7 @@ function createFun() {
     console.log(ground);
     
     // collision detection between player and ground
-    this.physics.add.collider(ground, this.player);
+    this.physics.add.collider(platforms, this.player);
     this.physics.add.collider(platforms, fruits);
     
 }
@@ -100,10 +118,13 @@ function createFun() {
 function updateFun() {
     if(this.cursors.left.isDown) {
         this.player.setVelocityX(-player_config.player_speed);
+        this.player.anims.play('left',true);
     } else if(this.cursors.right.isDown){
         this.player.setVelocityX(player_config.player_speed);
+        this.player.anims.play('right',true);
     } else {
         this.player.setVelocityX(0);
+        this.player.anims.play('center',true);
     }
     
     // add jumping ability , stop the player when in air
