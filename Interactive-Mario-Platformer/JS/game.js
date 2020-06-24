@@ -13,7 +13,7 @@ let config = {
             gravity: {
                 y: 1000
             },
-            debug: true
+            debug: false
         }
     },
     
@@ -35,6 +35,7 @@ function preloadFun() {
     this.load.image('ground','Assets/ground2.png')
     this.load.image('sky','Assets/background.png')
     this.load.image('apple','Assets/apple2.png')
+    this.load.image('ray','Assets/ray.png')
     this.load.spritesheet('player','Assets/player.png',{frameWidth: 32, frameHeight: 48})
 }
 
@@ -51,6 +52,11 @@ function createFun() {
     // add tileSprites
     let ground = this.add.tileSprite(0,H-77,W,189,'ground');
     ground.setOrigin(0,0);
+    
+    // create rays on top of our background
+//    let ray = this.add.sprite(W/2,H-73,'ray');
+//    ray.setScale(2);
+//    ray.setOrigin(0.5,1);
     
     // player
     this.player = this.physics.add.sprite(100, 100, 'player', 4);
@@ -122,7 +128,7 @@ function createFun() {
     this.physics.world.setBounds(0,0,W,H);
     
     this.cameras.main.startFollow(this.player, true, true);
-    this.cameras.main.setZoom(1.5);
+//    this.cameras.main.setZoom(1.5);
     
 }
 
